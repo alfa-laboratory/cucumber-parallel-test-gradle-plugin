@@ -1,0 +1,95 @@
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.netflix.nebula:nebula-plugin-plugin:4.24.2'
+    }
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+description 'Cucumber parallel testing gradle plugin'
+
+apply plugin: 'groovy'
+apply plugin: 'nebula.plugin-plugin'
+
+group = 'ru.alfalab.gradle'
+
+contacts {
+    'aatarasoff@gmail.com' {
+        moniker 'Tarasov Aleksandr'
+        github 'aatarasoff'
+    }
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+
+    testCompile 'com.netflix.nebula:nebula-test:4.2.2'
+}
+
+jacocoTestReport{
+    executionData = files("${project.buildDir}/jacoco/test.exec")
+}
+
+publishing {
+    publications {
+        pluginArtifact(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+artifactory {
+    contextUrl = project.findProperty('artifactory_contextUrl')
+
+    publish {
+        repository {
+            username = project.findProperty('artifactory_user')
+            password = project.findProperty('artifactory_password')
+            maven = true
+        }
+
+        defaults {
+            publications('nebula')
+            publishArtifacts = true
+        }
+    }
+}
+
+bintray {
+    user = project.findProperty('bintrayUser')
+    key = project.findProperty('bintrayKey')
+
+    publications = ['nebula']
+    dryRun = false
+    publish = true
+    pkg {
+        userOrg = 'alfa-laboratory'
+        repo = 'gradle-plugins'
+        name = 'cucumber-parallel-test-gradle-plugin'
+        desc = project.description
+        websiteUrl = 'https://github.com/alfa-laboratory/cucumber-parallel-test-gradle-plugin'
+        issueTrackerUrl = 'https://github.com/alfa-laboratory/cucumber-parallel-test-gradle-plugin'
+        vcsUrl = 'https://github.com/alfa-laboratory/cucumber-parallel-test-gradle-plugin'
+        licenses = ['Apache-2.0']
+        labels = ['cucumber', 'reporting', 'gradle', 'nebula']
+        publicDownloadNumbers = true
+        attributes = [:]
+        version {
+            name = project.version
+            vcsTag = project.version
+            attributes = [:]
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14'
+}
