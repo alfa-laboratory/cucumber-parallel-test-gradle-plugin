@@ -33,13 +33,15 @@ class CucumberParallelTestPlugin implements Plugin<Project> {
             compile group: 'info.cukes', name: 'cucumber-junit', version: '1.2.4'
         }
 
-        project['compileTestJava'].dependsOn('generateRunner')
         addGeneratedToSource(project, "test", conf.genDir)
 
         task(GenerateRunnerTask.TASK_NAME, type: GenerateRunnerTask) {
             inputs.files fileTree(dir: conf.featuresDir).include("**/*.feature")
             outputs.dir  conf.genDir
         }
+
+        project['compileTestJava'].dependsOn('generateRunner')
+        project['generateRunner'].dependsOn('processTestResources')
     }
 
     @CompileStatic
