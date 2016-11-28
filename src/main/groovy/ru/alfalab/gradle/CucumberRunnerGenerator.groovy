@@ -23,7 +23,7 @@ class CucumberRunnerGenerator {
         project.mkdir(buildDir);
         new File(buildDir, "GradleTestRunner.java").withOutputStream { os ->
             os << header;
-            features.files.each { file -> os << generateInnerRunnerClass(file) }
+            features.files.sort( { file -> file.name } ).each { file -> os << generateInnerRunnerClass(file) }
             os << footer;
         }
     }
