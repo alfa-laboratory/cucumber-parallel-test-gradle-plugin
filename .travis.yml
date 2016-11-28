@@ -6,8 +6,8 @@ jdk:
 - oraclejdk8
 install: true
 before_install:
-- test $TRAVIS_PULL_REQUEST = false && openssl aes-256-cbc -K $encrypted_33133f8b0edf_key
-  -iv $encrypted_33133f8b0edf_iv -in gradle.properties.enc -out gradle.properties
+- test $TRAVIS_PULL_REQUEST = false && openssl aes-256-cbc -K $encrypted_d233a0fd106e_key
+  -iv $encrypted_d233a0fd106e_iv -in gradle.properties.enc -out gradle.properties
   -d || true
 script: "./gradle/buildViaTravis.sh"
 cache:
