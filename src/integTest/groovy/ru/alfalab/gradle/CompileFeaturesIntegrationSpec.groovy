@@ -58,7 +58,7 @@ public class GradleTestRunner {
     @RunWith(Cucumber.class)
     @CucumberOptions (
             glue = {"tests/steps"},
-            format = {"pretty", "json:build/cucumber/cucumber2.json"},
+            format = {"pretty", "json:build/cucumber/cucumber1.json"},
             features = {"${file1.absolutePath}"}
     )
     public static class GradleTestRunner1 { }
@@ -92,7 +92,7 @@ public class GradleTestRunner {
     @RunWith(Cucumber.class)
     @CucumberOptions (
             glue = {"mytests/steps"},
-            format = {"pretty", "json:build/cucumber/cucumber2.json"},
+            format = {"pretty", "json:build/cucumber/cucumber1.json"},
             features = {"${file.absolutePath}"}
     )
     public static class GradleTestRunner1 { }

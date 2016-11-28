@@ -48,7 +48,7 @@ public class GradleTestRunner {
     @RunWith(Cucumber.class)
     @CucumberOptions (
             glue = {"${glue}"},
-            format = {"pretty", "json:build/cucumber/cucumber2.json"},
+            format = {"pretty", "json:build/cucumber/cucumber${classNumber}.json"},
             features = {"${featuresDir}"}
     )
     public static class GradleTestRunner${classNumber++} { }
