@@ -25,7 +25,7 @@ To include, add the following to your build.gradle
 
 ### Tasks Provided
 
-`generateRunner` generate test runners one for `.feature` file in test/resources directory
+`generateRunner` generate test runners one for `.feature` file in `test/resources` directory
 
 ### Extensions Provided
 
@@ -33,7 +33,7 @@ Nothing at the moment
     
 ### Runners
 
-Runners can be found in dir ${project.buildDir}/cucumber-parallel-test/generated/src/test/java
+Runners can be found in dir `${project.buildDir}/cucumber-parallel-test/generated/src/test/java`
 
 All runners clasess are added to `testJava` `sourceSet`.
 
