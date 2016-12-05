@@ -21,10 +21,10 @@ class CucumberRunnerGenerator {
 
     public void generate() {
         project.mkdir(buildDir);
-        new File(buildDir, "GradleTestRunner.java").withOutputStream { os ->
-            os << header;
-            features.files.sort( { file -> file.name } ).each { file -> os << generateInnerRunnerClass(file) }
-            os << footer;
+        new File(buildDir, "GradleTestRunner.java").withWriter("utf8") { writer ->
+            writer << header;
+            features.files.sort( { file -> file.name } ).each { file -> writer << generateInnerRunnerClass(file) }
+            writer << footer;
         }
     }
 
