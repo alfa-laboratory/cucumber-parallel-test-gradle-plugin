@@ -21,10 +21,10 @@ class CucumberRunnerGenerator {
 
     public void generate() {
         project.mkdir(buildDir);
-        new File(buildDir, "GradleTestRunner.java").withOutputStream { os ->
-            os << header;
-            features.files.sort( { file -> file.name } ).each { file -> os << generateInnerRunnerClass(file) }
-            os << footer;
+        new File(buildDir, "GradleTestRunner.java").withWriter("utf8") { writer ->
+            writer << header;
+            features.files.sort( { file -> file.name } ).each { file -> writer << generateInnerRunnerClass(file) }
+            writer << footer;
         }
     }
 
@@ -37,6 +37,8 @@ class CucumberRunnerGenerator {
         getFeatureClass(file.absolutePath);
     }
 
+    private static pathToJavaSource(String path) { path.replace("\\", "\\\\") }
+
     private String getHeader() {"""
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
@@ -44,12 +46,12 @@ import org.junit.runner.RunWith;
 public class GradleTestRunner {
 """}
 
-    private String getFeatureClass(String featuresDir){"""
+    private String getFeatureClass(String featuresPath){"""
     @RunWith(Cucumber.class)
     @CucumberOptions (
-            glue = {"${glue}"},
+            glue = {"${pathToJavaSource(glue)}"},
             format = {"pretty", "json:build/cucumber/cucumber${classNumber}.json"},
-            features = {"${featuresDir}"}
+            features = {"${pathToJavaSource(featuresPath)}"}
     )
     public static class GradleTestRunner${classNumber++} { }
 """}
