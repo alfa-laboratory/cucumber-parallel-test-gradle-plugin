@@ -101,5 +101,30 @@ public class GradleTestRunner {
 """ as String
     }
 
+    def "custom glue as array value must change glue in a java-file content and be written as array"() {
+        setup:
+        copyResources("create-runner-from-features-with-changed-glue-as-array.gradle", "build.gradle")
+        def file = createFile(["build", "resources", "test", "features", "first.feature"].join(File.separator))
+        when:
+        runTasksSuccessfully("generateRunner")
+        def code = new File(projectDir, ["build", "cucumber-parallel-test", "generated", "src", "test", "java", "GradleTestRunner.java"].join(File.separator)).text
+        then:
+        code == """
+import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
+import org.junit.runner.RunWith;
+public class GradleTestRunner {
+
+    @RunWith(Cucumber.class)
+    @CucumberOptions (
+            glue = {"mytests/steps","yourtests/steps","ourtests/steps/step"},
+            format = {"pretty", "json:build/cucumber/cucumber1.json"},
+            features = {"${file.absolutePath}"}
+    )
+    public static class GradleTestRunner1 { }
+
+}
+""" as String
+    }
 
 }
