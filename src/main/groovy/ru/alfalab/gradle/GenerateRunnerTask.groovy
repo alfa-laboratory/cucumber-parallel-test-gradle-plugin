@@ -14,7 +14,15 @@ class GenerateRunnerTask extends DefaultTask {
     final static String TASK_NAME = "generateRunner"
 
     @Input
-    String glue = [ "tests", "steps" ].join(File.separator);
+    private List<String> glue = [["tests", "steps"].join(File.separator)]
+
+    public void setGlue(String glue) {
+        this.glue = [glue];
+    }
+
+    public void setGlue(List<String> glue) {
+        this.glue = glue;
+    }
 
     @TaskAction
     def run() {

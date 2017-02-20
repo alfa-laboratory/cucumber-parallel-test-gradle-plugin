@@ -117,7 +117,7 @@ public class GradleTestRunner {
 
     @RunWith(Cucumber.class)
     @CucumberOptions (
-            glue = {"mytests/steps","yourtests/steps","ourtests/steps/step"},
+            glue = {"mytests/steps", "yourtests/steps", "ourtests/steps/step"},
             format = {"pretty", "json:build/cucumber/cucumber1.json"},
             features = {"${file.absolutePath}"}
     )

@@ -4,4 +4,4 @@ repositories {
 
 apply plugin: 'ru.alfalab.cucumber-parallel-test'
 
-generateRunner.glue = "mytests/steps, yourtests/steps, ourtests/steps/step"
+generateRunner.glue = ["mytests/steps", "yourtests/steps", "ourtests/steps/step"]
