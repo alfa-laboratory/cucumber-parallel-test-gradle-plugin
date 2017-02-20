@@ -18,6 +18,7 @@ class CucumberRunnerGenerator {
     FileCollection features;
     Project project;
     List<String> glue;
+    boolean useReportPortal;
 
     public void generate() {
         project.mkdir(buildDir);
@@ -50,11 +51,19 @@ public class GradleTestRunner {
     @RunWith(Cucumber.class)
     @CucumberOptions (
             glue = {${'"' + glue.join('", "') + '"'}},
-            format = {"pretty", "json:build/cucumber/cucumber${classNumber}.json"},
+            format = {${getCucumberFormatOptions()}},
             features = {"${pathToJavaSource(featuresPath)}"}
     )
     public static class GradleTestRunner${classNumber++} { }
 """}
+
+    def getCucumberFormatOptions() {
+        def options = [ "pretty", "json:build/cucumber/cucumber${classNumber}.json" ]
+        if(useReportPortal) {
+            options << "com.epam.reportportal.cucumber.ScenarioReporter"
+        }
+        return '"' + options.join('", "') + '"'
+    }
 
     private String getFooter(){"""
 }

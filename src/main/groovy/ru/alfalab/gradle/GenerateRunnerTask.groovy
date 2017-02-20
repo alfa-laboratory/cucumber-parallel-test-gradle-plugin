@@ -16,6 +16,9 @@ class GenerateRunnerTask extends DefaultTask {
     @Input
     private List<String> glue = [["tests", "steps"].join(File.separator)]
 
+    @Input
+    public boolean useReportPortal;
+
     public void setGlue(String glue) {
         this.glue = [glue];
     }
@@ -30,7 +33,8 @@ class GenerateRunnerTask extends DefaultTask {
             project: project,
             features: inputs.files,
             buildDir: outputs.files.singleFile,
-            glue: glue
+            glue: glue,
+            useReportPortal: useReportPortal
         )
         generator.generate()
     }
