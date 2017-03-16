@@ -19,6 +19,8 @@ class CucumberRunnerGenerator {
     Project project;
     List<String> glue;
     boolean useReportPortal;
+    boolean monochrome;
+    boolean strict;
 
     public void generate() {
         project.mkdir(buildDir);
@@ -52,7 +54,9 @@ public class GradleTestRunner {
     @CucumberOptions (
             glue = {${'"' + glue.join('", "') + '"'}},
             format = {${getCucumberFormatOptions()}},
-            features = {"${pathToJavaSource(featuresPath)}"}
+            features = {"${pathToJavaSource(featuresPath)}"},
+            strict = ${strict},
+            monochrome = ${monochrome}
     )
     public static class GradleTestRunner${classNumber++} { }
 """}
