@@ -22,6 +22,12 @@ class CucumberRunnerGenerator {
 
     public void generate() {
         project.mkdir(buildDir);
+        helper = new CucumberRunnerClassGenerator(
+                useReportPortal: useReportPortal,
+                glue: glue,
+                monochrome: monochrome,
+                strict: strict
+        );
         new File(buildDir, "GradleTestRunner.java").withWriter("utf8") { writer ->
             writer << helper.getHeader();
             features.files.sort( { file -> file.name } ).each { file -> writer << helper.generateInnerRunnerClass(file) }
