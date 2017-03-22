@@ -10,6 +10,4 @@ class SimplePluginConfigurationSpec extends PluginProjectSpec {
     String getPluginName() {
         return 'ru.alfalab.cucumber-parallel-test'
     }
-
-
 }
