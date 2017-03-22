@@ -19,6 +19,10 @@ class GenerateRunnerTask extends DefaultTask {
     @Input
     public boolean useReportPortal;
 
+    @Input boolean strict;
+
+    @Input boolean monochrome;
+
     public void setGlue(String glue) {
         this.glue = [glue];
     }
@@ -34,7 +38,9 @@ class GenerateRunnerTask extends DefaultTask {
             features: inputs.files,
             buildDir: outputs.files.singleFile,
             glue: glue,
-            useReportPortal: useReportPortal
+            useReportPortal: useReportPortal,
+            strict: strict,
+            monochrome: monochrome
         )
         generator.generate()
     }
