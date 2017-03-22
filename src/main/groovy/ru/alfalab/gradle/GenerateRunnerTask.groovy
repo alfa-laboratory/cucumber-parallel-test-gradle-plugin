@@ -31,10 +31,6 @@ class GenerateRunnerTask extends DefaultTask {
         this.glue = glue;
     }
 
-    public List<String> getGlue() {
-        return glue;
-    }
-
     @TaskAction
     def run() {
         CucumberRunnerGenerator generator = new CucumberRunnerGenerator(
