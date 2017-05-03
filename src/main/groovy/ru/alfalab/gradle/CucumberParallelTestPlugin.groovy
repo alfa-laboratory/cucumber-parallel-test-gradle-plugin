@@ -24,10 +24,6 @@ class CucumberParallelTestPlugin implements Plugin<Project> {
             featuresDir: [ buildDir, "resources", "test", "features" ].join(File.separator)
         ])
 
-        repositories {
-            mavenCentral()
-        }
-
         dependencies {
             compile group: 'info.cukes', name: 'cucumber-java', version: '1.2.4'
             compile group: 'info.cukes', name: 'cucumber-junit', version: '1.2.4'
