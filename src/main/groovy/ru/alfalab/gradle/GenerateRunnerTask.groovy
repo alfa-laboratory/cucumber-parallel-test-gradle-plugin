@@ -17,9 +17,8 @@ class GenerateRunnerTask extends DefaultTask {
     private List<String> glue = [["tests", "steps"].join(File.separator)]
 
     @Input
-    public boolean useReportPortal;
+    public List<String> formatter = [];
 
-    @Input boolean strict;
 
     @Input boolean monochrome;
 
@@ -38,8 +37,7 @@ class GenerateRunnerTask extends DefaultTask {
             features: inputs.files,
             buildDir: outputs.files.singleFile,
             glue: glue,
-            useReportPortal: useReportPortal,
-            strict: strict,
+            formatter: formatter,
             monochrome: monochrome
         )
         generator.generate()

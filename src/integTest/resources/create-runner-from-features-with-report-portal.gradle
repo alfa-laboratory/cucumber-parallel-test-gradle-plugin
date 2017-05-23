@@ -4,4 +4,4 @@ repositories {
 
 apply plugin: 'ru.alfalab.cucumber-parallel-test'
 
-generateRunner.useReportPortal = true
+generateRunner.formatter = ["com.epam.reportportal.cucumber.ScenarioReporter"]

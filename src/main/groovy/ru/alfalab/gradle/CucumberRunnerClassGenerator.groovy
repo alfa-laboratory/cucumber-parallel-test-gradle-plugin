@@ -9,9 +9,8 @@ class CucumberRunnerClassGenerator {
 
     private int classNumber = 1;
     List<String> glue;
-    boolean useReportPortal;
+    List<String> formatter;
     boolean monochrome;
-    boolean strict;
 
     def generateInnerRunnerClass(File file) {
         log.debug("Generate runner for file $file.name")
@@ -42,7 +41,6 @@ public class GradleTestRunner {
             glue = {${'"' + glue.join('", "') + '"'}},
             format = {${getCucumberFormatOptions()}},
             features = {"${pathToJavaSource(featuresPath)}"},
-            strict = ${strict},
             monochrome = ${monochrome}
     )
     public static class GradleTestRunner${classNumber++} { }
@@ -50,9 +48,10 @@ public class GradleTestRunner {
 
     def getCucumberFormatOptions() {
         def options = [ "pretty", "json:build/cucumber/cucumber${classNumber}.json" ]
-        if(useReportPortal) {
-            options << "com.epam.reportportal.cucumber.ScenarioReporter"
-        }
+        log.debug("Formatter:\n" + formatter)
+        if(!formatter.empty)
+            for (String item : formatter)
+                options << item;
         return '"' + options.join('", "') + '"'
     }
 
