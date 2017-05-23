@@ -48,7 +48,6 @@ public class GradleTestRunner {
 
     def getCucumberFormatOptions() {
         def options = [ "pretty", "json:build/cucumber/cucumber${classNumber}.json" ]
-        log.debug("Formatter:\n" + formatter)
         if(!formatter.empty)
             for (String item : formatter)
                 options << item;
