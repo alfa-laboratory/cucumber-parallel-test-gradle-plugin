@@ -15,7 +15,7 @@ class CucumberRunnerGenerator {
     FileCollection features;
     Project project;
     List<String> glue;
-    boolean useReportPortal;
+    List<String> format;
     boolean monochrome;
     boolean strict;
     CucumberRunnerClassGenerator helper;
@@ -23,10 +23,9 @@ class CucumberRunnerGenerator {
     public void generate() {
         project.mkdir(buildDir);
         helper = new CucumberRunnerClassGenerator(
-                useReportPortal: useReportPortal,
+                format: format,
                 glue: glue,
                 monochrome: monochrome,
-                strict: strict
         );
         new File(buildDir, "GradleTestRunner.java").withWriter("utf8") { writer ->
             writer << helper.getHeader();

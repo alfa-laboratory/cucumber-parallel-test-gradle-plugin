@@ -60,7 +60,6 @@ public class GradleTestRunner {
             glue = {"tests/steps"},
             format = {"pretty", "json:build/cucumber/cucumber1.json"},
             features = {"${file1.absolutePath}"},
-            strict = false,
             monochrome = false
     )
     public static class GradleTestRunner1 { }
@@ -70,7 +69,6 @@ public class GradleTestRunner {
             glue = {"tests/steps"},
             format = {"pretty", "json:build/cucumber/cucumber2.json"},
             features = {"${file2.absolutePath}"},
-            strict = false,
             monochrome = false
     )
     public static class GradleTestRunner2 { }
@@ -98,7 +96,6 @@ public class GradleTestRunner {
             glue = {"mytests/steps"},
             format = {"pretty", "json:build/cucumber/cucumber1.json"},
             features = {"${file.absolutePath}"},
-            strict = false,
             monochrome = false
     )
     public static class GradleTestRunner1 { }
@@ -126,7 +123,6 @@ public class GradleTestRunner {
             glue = {"mytests/steps", "yourtests/steps", "ourtests/steps/step"},
             format = {"pretty", "json:build/cucumber/cucumber1.json"},
             features = {"${file.absolutePath}"},
-            strict = false,
             monochrome = false
     )
     public static class GradleTestRunner1 { }
@@ -155,7 +151,6 @@ public class GradleTestRunner {
             glue = {"tests/steps"},
             format = {"pretty", "json:build/cucumber/cucumber1.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
             features = {"${file.absolutePath}"},
-            strict = false,
             monochrome = false
     )
     public static class GradleTestRunner1 { }
@@ -163,33 +158,7 @@ public class GradleTestRunner {
 }
 """ as String
     }
-    def "strict mode"() {
-        setup:
-        copyResources("create-runner-from-features-with-strict-mode.gradle", "build.gradle")
-        def file = createFile(["build", "resources", "test", "features", "first.feature"].join(File.separator))
-        when:
-        runTasksSuccessfully("generateRunner")
-        def code = new File(projectDir, ["build", "cucumber-parallel-test", "generated", "src", "test", "java", "GradleTestRunner.java"].join(File.separator)).text
-        then:
-        code == """
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
-import org.junit.runner.RunWith;
-public class GradleTestRunner {
 
-    @RunWith(Cucumber.class)
-    @CucumberOptions (
-            glue = {"tests/steps"},
-            format = {"pretty", "json:build/cucumber/cucumber1.json"},
-            features = {"${file.absolutePath}"},
-            strict = true,
-            monochrome = false
-    )
-    public static class GradleTestRunner1 { }
-
-}
-""" as String
-    }
     def "monochrome mode"() {
         setup:
         copyResources("create-runner-from-features-with-monochrome.gradle", "build.gradle")
@@ -209,7 +178,6 @@ public class GradleTestRunner {
             glue = {"tests/steps"},
             format = {"pretty", "json:build/cucumber/cucumber1.json"},
             features = {"${file.absolutePath}"},
-            strict = false,
             monochrome = true
     )
     public static class GradleTestRunner1 { }

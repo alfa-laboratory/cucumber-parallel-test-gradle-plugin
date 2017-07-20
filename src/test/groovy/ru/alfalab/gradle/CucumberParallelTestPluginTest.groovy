@@ -12,9 +12,8 @@ public class CucumberParallelTestPluginTest {
     public void prepare() {
         helper = new CucumberRunnerClassGenerator(
                 glue: ["steps"],
-                strict: true,
                 monochrome: false,
-                useReportPortal: true
+                format: ["com.epam.reportportal.cucumber.ScenarioReporter", "myRandomParameter"]
         )
     }
 
@@ -33,7 +32,7 @@ public class GradleTestRunner {
 
     @Test
     public void checkCucumberFormatOptions() {
-        assert helper.getCucumberFormatOptions() == "\"pretty\", \"json:build/cucumber/cucumber1.json\", \"com.epam.reportportal.cucumber.ScenarioReporter\""
+        assert helper.getCucumberFormatOptions() == "\"pretty\", \"json:build/cucumber/cucumber1.json\", \"com.epam.reportportal.cucumber.ScenarioReporter\", \"myRandomParameter\""
     }
 
     @Test
@@ -49,9 +48,8 @@ public class GradleTestRunner {
     @RunWith(Cucumber.class)
     @CucumberOptions (
             glue = {"steps"},
-            format = {"pretty", "json:build/cucumber/cucumber1.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
+            format = {"pretty", "json:build/cucumber/cucumber1.json", "com.epam.reportportal.cucumber.ScenarioReporter", "myRandomParameter"},
             features = {"a\\\\b"},
-            strict = true,
             monochrome = false
     )
     public static class GradleTestRunner1 { }
@@ -64,9 +62,8 @@ public class GradleTestRunner {
     @RunWith(Cucumber.class)
     @CucumberOptions (
             glue = {"steps"},
-            format = {"pretty", "json:build/cucumber/cucumber1.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
+            format = {"pretty", "json:build/cucumber/cucumber1.json", "com.epam.reportportal.cucumber.ScenarioReporter", "myRandomParameter"},
             features = {"dir\\\\filename"},
-            strict = true,
             monochrome = false
     )
     public static class GradleTestRunner1 { }
@@ -86,9 +83,8 @@ public class GradleTestRunner {
     @RunWith(Cucumber.class)
     @CucumberOptions (
             glue = {"steps"},
-            format = {"pretty", "json:build/cucumber/cucumber1.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
+            format = {"pretty", "json:build/cucumber/cucumber1.json", "com.epam.reportportal.cucumber.ScenarioReporter", "myRandomParameter"},
             features = {"/tmp/filename.feature"},
-            strict = true,
             monochrome = false
     )
     public static class GradleTestRunner1 { }
