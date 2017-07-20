@@ -16,7 +16,7 @@ class CompileFeaturesIntegrationSpec extends IntegrationSpec {
         noExceptionThrown()
     }
 
-    /*def "generateRunner depends on compileTestJava"() {
+    def "generateRunner depends on compileTestJava"() {
         setup:
         copyResources("create-runner-from-features.gradle", "build.gradle")
         createFile(["src", "test", "resources", "features", "Test.feature"].join(File.separator))
@@ -24,7 +24,7 @@ class CompileFeaturesIntegrationSpec extends IntegrationSpec {
         runTasksSuccessfully("test")
         then:
         fileExists([ "build", "classes", "test", "GradleTestRunner.class" ].join(File.separator))
-    }*/
+    }
 
     def "built features turn into java-file"() {
         setup:

@@ -13,7 +13,7 @@ public class CucumberParallelTestPluginTest {
         helper = new CucumberRunnerClassGenerator(
                 glue: ["steps"],
                 monochrome: false,
-                formatter: ["com.epam.reportportal.cucumber.ScenarioReporter", "myRandomParameter"]
+                format: ["com.epam.reportportal.cucumber.ScenarioReporter", "myRandomParameter"]
         )
     }
 

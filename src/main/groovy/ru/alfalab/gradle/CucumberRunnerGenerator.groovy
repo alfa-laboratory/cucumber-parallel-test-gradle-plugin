@@ -15,7 +15,7 @@ class CucumberRunnerGenerator {
     FileCollection features;
     Project project;
     List<String> glue;
-    List<String> formatter;
+    List<String> format;
     boolean monochrome;
     boolean strict;
     CucumberRunnerClassGenerator helper;
@@ -23,7 +23,7 @@ class CucumberRunnerGenerator {
     public void generate() {
         project.mkdir(buildDir);
         helper = new CucumberRunnerClassGenerator(
-                formatter: formatter,
+                format: format,
                 glue: glue,
                 monochrome: monochrome,
         );

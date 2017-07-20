@@ -9,7 +9,7 @@ class CucumberRunnerClassGenerator {
 
     private int classNumber = 1;
     List<String> glue;
-    List<String> formatter;
+    List<String> format;
     boolean monochrome;
 
     def generateInnerRunnerClass(File file) {
@@ -48,8 +48,8 @@ public class GradleTestRunner {
 
     def getCucumberFormatOptions() {
         def options = [ "pretty", "json:build/cucumber/cucumber${classNumber}.json" ]
-        if(!formatter.empty)
-            for (String item : formatter)
+        if(!format.empty)
+            for (String item : format)
                 options << item;
         return '"' + options.join('", "') + '"'
     }
