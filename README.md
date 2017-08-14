@@ -1,6 +1,6 @@
 # cucumber-parallel-test-gradle-plugin
 
-Gradle plugin for generating test runners for parallel testing with Cucumber [Cucumber](https://cucumber.io/)
+Gradle plugin for generating test runners for parallel testing with [Cucumber](https://cucumber.io/)
 
 ## Project quality
 
