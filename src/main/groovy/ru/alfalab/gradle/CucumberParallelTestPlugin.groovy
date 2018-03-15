@@ -25,8 +25,8 @@ class CucumberParallelTestPlugin implements Plugin<Project> {
         ])
 
         dependencies {
-            compile group: 'info.cukes', name: 'cucumber-java', version: '1.2.4'
-            compile group: 'info.cukes', name: 'cucumber-junit', version: '1.2.4'
+            compile group: 'io.cucumber', name: 'cucumber-java', version: '2.4.0'
+            compile group: 'io.cucumber', name: 'cucumber-junit', version: '2.4.0'
         }
 
         addGeneratedToSource(project, "test", conf.genDir)
