@@ -5,11 +5,11 @@ import org.junit.Before
 import org.junit.Test
 
 @CompileStatic
-public class CucumberParallelTestPluginTest {
-    CucumberRunnerClassGenerator helper;
+class CucumberParallelTestPluginTest {
+    CucumberRunnerClassGenerator helper
 
     @Before
-    public void prepare() {
+    void prepare() {
         helper = new CucumberRunnerClassGenerator(
                 glue: ["steps"],
                 monochrome: false,
@@ -18,7 +18,7 @@ public class CucumberParallelTestPluginTest {
     }
 
     @Test
-    public void checkGets() {
+    void checkGets() {
         assert helper.getHeader() == """
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
@@ -31,19 +31,19 @@ public class GradleTestRunner {
     }
 
     @Test
-    public void checkCucumberFormatOptions() {
+    void checkCucumberFormatOptions() {
         assert helper.getCucumberFormatOptions() == "\"pretty\", \"json:build/cucumber/cucumber1.json\", \"com.epam.reportportal.cucumber.ScenarioReporter\", \"myRandomParameter\""
     }
 
     @Test
-    public void checkPathToJavaSource() {
+    void checkPathToJavaSource() {
         String path = "a\\b\\c"
         path = helper.pathToJavaSource(path)
         assert path == "a\\\\b\\\\c"
     }
 
     @Test
-    public void checkMainMethodInClass() {
+    void checkMainMethodInClass() {
         assert helper.getFeatureClass("a\\b") == """
     @RunWith(Cucumber.class)
     @CucumberOptions (
@@ -57,7 +57,7 @@ public class GradleTestRunner {
     }
 
     @Test
-    public void checkGenerateInnerRunnerClass() {
+    void checkGenerateInnerRunnerClass() {
         assert helper.generateInnerRunnerClass("filename", "dir\\filename") == """
     @RunWith(Cucumber.class)
     @CucumberOptions (
@@ -71,14 +71,14 @@ public class GradleTestRunner {
     }
 
     @Test
-    public void checkWorkWithFile() {
-        File file = new File("filename.txt");
+    void checkWorkWithFile() {
+        File file = new File("filename.txt")
         assert helper.generateInnerRunnerClass(file) == null
     }
 
     @Test
-    public void checkWorkWithFeatureFile() {
-        File file = new File("/tmp/filename.feature");
+    void checkWorkWithFeatureFile() {
+        File file = new File("/tmp/filename.feature")
         assert helper.generateInnerRunnerClass(file) == """
     @RunWith(Cucumber.class)
     @CucumberOptions (
@@ -89,6 +89,17 @@ public class GradleTestRunner {
     )
     public static class GradleTestRunner1 { }
 """
+    }
+
+    @Test
+    void checkParseTag() {
+        String tags = "@abc,@qwerty,@qazwsx"
+        Set<String> set = new HashSet<>()
+        set.add("@abc")
+        set.add("@qwerty")
+        set.add("@qazwsx")
+
+        assert set == FeatureReader.parseTag(tags)
     }
 
 
