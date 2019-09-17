@@ -3,7 +3,6 @@ package ru.alfalab.gradle
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 import org.gradle.api.Project
-import org.gradle.api.file.FileCollection
 
 /**
  * Created by ruslanmikhalev on 24/11/16.
@@ -11,26 +10,26 @@ import org.gradle.api.file.FileCollection
 @CompileStatic
 @Slf4j
 class CucumberRunnerGenerator {
-    File buildDir;
-    FileCollection features;
-    Project project;
-    List<String> glue;
-    List<String> format;
-    boolean monochrome;
-    boolean strict;
-    CucumberRunnerClassGenerator helper;
+    File buildDir
+    Set<File> features
+    Project project
+    List<String> glue
+    List<String> format
+    boolean monochrome
+    boolean strict
+    CucumberRunnerClassGenerator helper
 
-    public void generate() {
-        project.mkdir(buildDir);
+    void generate() {
+        project.mkdir(buildDir)
         helper = new CucumberRunnerClassGenerator(
                 format: format,
                 glue: glue,
                 monochrome: monochrome,
-        );
+        )
         new File(buildDir, "GradleTestRunner.java").withWriter("utf8") { writer ->
-            writer << helper.getHeader();
-            features.files.sort( { file -> file.name } ).each { file -> writer << helper.generateInnerRunnerClass(file) }
-            writer << helper.getFooter();
+            writer << helper.getHeader()
+            features.sort({ file -> file.name }).each { file -> writer << helper.generateInnerRunnerClass(file) }
+            writer << helper.getFooter()
         }
     }
 }

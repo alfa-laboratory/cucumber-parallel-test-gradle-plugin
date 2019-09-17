@@ -17,28 +17,31 @@ class GenerateRunnerTask extends DefaultTask {
     private List<String> glue = [["tests", "steps"].join(File.separator)]
 
     @Input
-    public List<String> format = [];
+    public List<String> format = []
 
+    @Input
+    public String tags
 
-    @Input boolean monochrome;
+    @Input
+    boolean monochrome
 
-    public void setGlue(String glue) {
-        this.glue = [glue];
+    void setGlue(String glue) {
+        this.glue = [glue]
     }
 
-    public void setGlue(List<String> glue) {
-        this.glue = glue;
+    void setGlue(List<String> glue) {
+        this.glue = glue
     }
 
     @TaskAction
     def run() {
         CucumberRunnerGenerator generator = new CucumberRunnerGenerator(
-            project: project,
-            features: inputs.files,
-            buildDir: outputs.files.singleFile,
-            glue: glue,
-            format: format,
-            monochrome: monochrome
+                project: project,
+                features: FeatureReader.filterByTags(inputs.files.files, tags),
+                buildDir: outputs.files.singleFile,
+                glue: glue,
+                format: format,
+                monochrome: monochrome
         )
         generator.generate()
     }
