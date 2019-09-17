@@ -44,7 +44,7 @@ public class FeatureReader {
         return tagList;
     }
 
-    private static Set<String> readFromFile(File f) {
+    static Set<String> readFromFile(File f) {
         Set<String> fileLineSet = new HashSet<>();
         String s;
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {

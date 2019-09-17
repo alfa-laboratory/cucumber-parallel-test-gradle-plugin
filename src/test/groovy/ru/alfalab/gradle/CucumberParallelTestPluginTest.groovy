@@ -102,5 +102,38 @@ public class GradleTestRunner {
         assert set == FeatureReader.parseTag(tags)
     }
 
+    @Test
+    void checkFilterByTags() {
+        Set<File> featSetBefore = new HashSet<>()
+        featSetBefore.add(new File("src/test/resources/test.feature"))
+        featSetBefore.add(new File("src/test/resources/test2.feature"))
+
+        Set<File> featSetAfter = new HashSet<>()
+        featSetAfter.add(new File("src/test/resources/test.feature"))
+
+        assert featSetAfter == FeatureReader.filterByTags(featSetBefore, "@trojan")
+    }
+
+    @Test
+    void checkReadFromFile() {
+        Set<String> fileLine = new HashSet<>()
+
+        fileLine.add("")
+        fileLine.add("@alfa-travel")
+        fileLine.add("  Сценарий: Заказ дебетовой карты Alfa-Travel Premium")
+        fileLine.add("@debit-cards")
+        fileLine.add("@desktop")
+        fileLine.add("Функциональность: Заказ дебетовой карты Alfa-Travel")
+        fileLine.add("  @trojan")
+        fileLine.add("  Предыстория: Открылась страница дебетовой карты Alfa-Travel")
+        fileLine.add("@middle")
+        fileLine.add("#language:ru")
+        fileLine.add("    Дано совершен переход на страницу \"Страница заказа Alfa-Travel\" по ссылке \"alfaTravel\"")
+        fileLine.add("    Когда элемент \"Заказать карту\" существует на странице")
+        fileLine.add("  @desktop-positive")
+
+        assert fileLine == FeatureReader.readFromFile(new File("src/test/resources/test.feature"))
+    }
+
 
 }
