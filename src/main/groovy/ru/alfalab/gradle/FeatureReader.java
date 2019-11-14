@@ -18,7 +18,7 @@ public class FeatureReader {
      */
     static Set<File> filterByTags(Set<File> featureSet, String tags) throws IOException {
 
-        if (tags == null) {
+        if (tags == null || tags.isEmpty()) {
             return featureSet;
         }
 
