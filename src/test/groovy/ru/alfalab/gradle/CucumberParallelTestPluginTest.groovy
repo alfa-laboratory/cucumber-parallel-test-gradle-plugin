@@ -93,11 +93,13 @@ public class GradleTestRunner {
 
     @Test
     void checkParseTag() {
-        String tags = "@abc,@qwerty,@qazwsx"
+        String tags = "@abc123,@qwerty,@qazwsx, @tag-123 and @tag-test"
         Set<String> set = new HashSet<>()
-        set.add("@abc")
+        set.add("@abc123")
         set.add("@qwerty")
         set.add("@qazwsx")
+        set.add("@tag-123")
+        set.add("@tag-test")
 
         assert set == FeatureReader.parseTag(tags)
     }

@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class FeatureReader {
 
-    private static final String TAG_PATTERN = "@\\w+";
+    private static final String TAG_PATTERN = "@\\w+[-\\S]\\w+";
 
     /**
      * Исключаем из списка feature файлов те которые не содержат запускаемые теги

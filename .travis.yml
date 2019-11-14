@@ -3,7 +3,7 @@ sudo: false
 services:
 - docker
 jdk:
-- oraclejdk8
+  - oraclejdk9
 install: true
 before_install:
 - test $TRAVIS_PULL_REQUEST = false && openssl aes-256-cbc -K $encrypted_d233a0fd106e_key
